@@ -8,3 +8,4 @@ __pycache__/
 data/
 .env.save
 *.save
+scripts/_measure_results_*.json

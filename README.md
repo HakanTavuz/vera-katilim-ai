@@ -26,6 +26,8 @@ uvicorn app.main:app --reload
 
 Open http://127.0.0.1:8000. The seed script prints the demo logins. Full setup, the vulnerability map and the test users are in [docs/kurulum-ve-aciklar.md](docs/kurulum-ve-aciklar.md), and each attack has a step-by-step note under [docs/attacks/](docs/attacks/).
 
+Beyond the per-mode unit tests, each LLM attack was also run 10 times against the live model in both modes; the measurement script and what the numbers say about relying on a model's own guardrails are in [docs/attacks/canli-olcum.md](docs/attacks/canli-olcum.md).
+
 ## Note
 
 Insecure by design, for learning only. Run it on your own machine and nowhere else. The bank, the customers, the IBANs and the ID numbers are all made up.

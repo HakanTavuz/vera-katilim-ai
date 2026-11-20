@@ -41,5 +41,6 @@ Sunucu tarafında da cevap maskelenir; CSP satır içi handler'ları ayrıca eng
 
 ## Notlar
 
-- Deneme sayısı / başarı:
-- Kullanılan araç:
+- Deneme sayısı / başarı: N=10 — Açık mod 10/10, güvenli mod 0/10 (açık modda ham HTML üretti)
+- Kullanılan araç: `scripts/measure_llm.py` (DeepSeek deepseek-chat, temperature 0.3)
+- Ayrıntılı bulgular ve yorum: [canli-olcum.md](canli-olcum.md)
