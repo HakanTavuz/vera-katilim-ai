@@ -38,6 +38,6 @@ Bunlar tek başına yeterli değildir; asıl koruma VULN-08 ve VULN-10 düzeltme
 
 ## Notlar
 
-- Deneme sayısı / başarı: N=10 — Açık mod 0/10, güvenli mod 0/10 (açık modda model gömülü talimata uymadı; kod yolu yine de açık)
+- Deneme sayısı / başarı: N=10. Açık mod 0/10, güvenli mod 0/10 (açık modda model gömülü talimata uymadı; kod yolu yine de açık)
 - Kullanılan araç: `scripts/measure_llm.py` (DeepSeek deepseek-chat, temperature 0.3)
-- Ayrıntılı bulgular ve yorum: [canli-olcum.md](canli-olcum.md)
+- Ayrıntılar: [canli-olcum.md](canli-olcum.md)

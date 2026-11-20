@@ -1,6 +1,6 @@
 # Kurulum, güvenlik modu ve açık listesi
 
-Bu dosya projenin ayrıntılı kurulum ve referans belgesidir. Kısa tanıtım için ana [README](../README.md) dosyasına bak.
+Kurulumun ve açıkların ayrıntıları burada. Kısa tanıtım için [README](../README.md) dosyasına bak.
 
 ## Kurulum
 
@@ -134,38 +134,32 @@ pytest -v
 LLM'in kendisi deterministik olmadığı için AI testleri sahte (senaryolu) bir istemci kullanır;
 test edilen şey modelin ne söylediği değil, kodun modele neye izin verdiğidir.
 
-Gerçek model üzerindeki ölçüm ayrıdır: [`scripts/measure_llm.py`](../scripts/measure_llm.py) her LLM açığının
-payload'ını canlı DeepSeek modeline karşı açık ve güvenli modda 10'ar kez çalıştırır. Sonuçlar ve yorum
-(modelin hizalaması neden güvenilmez bir katman) [canli-olcum.md](attacks/canli-olcum.md) dosyasında.
+Gerçek modelle yapılan ölçüm ayrı: [`scripts/measure_llm.py`](../scripts/measure_llm.py) her LLM açığının
+payload'ını DeepSeek'e karşı açık ve güvenli modda 10'ar kez çalıştırıyor. Sonuçlar
+[canli-olcum.md](attacks/canli-olcum.md) dosyasında.
 
 ## KVKK ve verinin işlendiği yer
 
-Asistan çalışırken müşteri verisi (bakiye, hesap hareketi açıklamaları, profil alanları) araç çıktısı olarak
-DeepSeek API'sine gönderilir. DeepSeek yurt dışında barındırılan bir servistir. Gerçek bir banka için bu,
-KVKK ve veri yerleşimi (data residency) açısından başlı başına bir sorundur: kişisel ve finansal veri,
-açık rıza ve yurt dışına aktarım şartları olmadan üçüncü bir ülkedeki sağlayıcıya çıkar. Güvenli modda IBAN,
-TC ve telefon model cevabında maskelenir, ama araç çağrısı sırasında ham veri yine de sağlayıcıya gider.
+Asistan çalışırken müşteri verisi (bakiye, işlem açıklamaları, profil bilgileri) araç çıktısı olarak
+DeepSeek API'sine gidiyor. DeepSeek yurt dışında bir servis. Gerçek bir bankada bu KVKK açısından sorun olur,
+çünkü kişisel ve finansal veri açık rıza ve yurt dışına aktarım şartları sağlanmadan başka bir ülkedeki
+sağlayıcıya gönderilmiş olur. Güvenli modda IBAN, TC ve telefon modelin cevabında maskeleniyor ama araç
+çağrısı sırasında ham veri yine sağlayıcıya gidiyor.
 
-Bu yüzden tek bir dış modele bağımlılık, koddaki açıklardan bağımsız bir risktir. Yerinde (on-premise)
-çalışan bir model (ör. Ollama ile yerel bir LLM) bu veriyi kurum dışına çıkarmadan aynı işi yapabilir;
-karşılığında donanım maliyeti ve genelde daha düşük model başarısı gelir. Tezin Tartışma bölümünde bu ödünü
-(veri gizliliği ↔ model yeteneği) ele almak yerinde olur.
+Bunun çözümü kurum içinde çalışan bir model olabilir (ör. Ollama ile yerel bir LLM). Veri dışarı çıkmaz,
+ama donanım maliyeti var ve küçük modeller genelde daha zayıf.
 
 ## Sınırlılıklar (güvenli modda da geçerli)
 
-Güvenli mod 12 açığı kapatır, ama bu bir öğretim projesidir ve üretime hazır bir banka değildir. Jürinin
-sorabileceği, bilerek kapsam dışı bırakılan noktalar:
+Güvenli mod 12 açığı kapatıyor ama bu bir eğitim projesi, gerçek bir banka için yeterli değil. Bilerek
+kapsam dışında bıraktığım noktalar:
 
-- **CSRF koruması yok.** Oturum çerezi `SameSite=lax` ile korunur, ayrı bir CSRF token'ı yoktur
-  ([app/main.py](../app/main.py), `SessionMiddleware`). Gerçek bir uygulamada form gönderimlerinde CSRF
-  token'ı gerekir.
-- **Çerez `Secure` (https_only) değil.** Localhost HTTP üzerinde çalıştığı için çerezde `Secure` bayrağı
-  yoktur; HTTPS'e taşınınca açılmalıdır.
-- **Rate limit bellek içinde tutulur.** `RateLimiter` sayaçları tek process'in belleğinde durur
-  ([app/auth.py](../app/auth.py)). Birden fazla worker veya sunucu olunca ortak bir depo (ör. Redis) gerekir.
-- **Şifreleme anahtarı `.env` içinde.** `DATA_ENCRYPTION_KEY` dosyada düz durur. Gerçek sistemde bu anahtar
-  bir KMS veya HashiCorp Vault'ta tutulur (bkz. [AES-256-GCM katmanı](#aes-256-gcm-katmanı)).
-- **Tek dış model.** Yukarıdaki KVKK başlığına bakın.
-
-Bunları "Sınırlılıklar" başlığı altında açıkça yazmak, jüriye bu noktaların gözden kaçmadığını, kapsam
-gereği dışarıda bırakıldığını gösterir.
+- CSRF token'ı yok. Oturum çerezi sadece `SameSite=lax` ile korunuyor
+  ([app/main.py](../app/main.py), `SessionMiddleware`). Gerçek bir uygulamada formlarda CSRF token'ı olmalı.
+- Çerezde `Secure` (https_only) bayrağı yok, çünkü uygulama localhost'ta HTTP ile çalışıyor. HTTPS'e
+  geçince açılmalı.
+- Rate limit sayaçları tek process'in belleğinde tutuluyor ([app/auth.py](../app/auth.py)). Birden fazla
+  worker ya da sunucu olursa Redis gibi ortak bir yere taşınması gerekir.
+- `DATA_ENCRYPTION_KEY` `.env` dosyasında düz duruyor. Gerçek bir sistemde KMS ya da HashiCorp Vault'ta
+  tutulur (bkz. [AES-256-GCM katmanı](#aes-256-gcm-katmanı)).
+- Asistan tek bir dış modele bağlı (yukarıdaki KVKK kısmı).

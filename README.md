@@ -1,18 +1,18 @@
 # VERA Katılım: AI Banking Security Lab
 
-A graduation project on the security of AI-assisted banking. It is a working internet banking site with an AI assistant, built as a lab to attack first and defend second. Everything runs on localhost and all data is invented.
+My graduation project on the security of AI-assisted banking. It is a small internet banking site with an AI assistant that I first attack and then fix. It runs only on localhost and all the data is made up.
 
-Banks are wiring AI assistants to real accounts. Once that assistant can read balances and move money, it becomes a new way in. So this project builds the same bank twice: one copy with the common mistakes left in, one with them fixed. A single switch in `.env` (`SECURE_MODE`) flips the whole app between the two, and a badge in the corner shows which side you are on.
+The idea: if a bank's assistant can read balances and send money, an attacker can try to use the assistant itself. The app has a `SECURE_MODE` setting in `.env`. With `false` the common mistakes are left in, with `true` they are fixed. A badge in the top corner shows which mode is on.
 
-Twelve issues are built in, across the OWASP Top 10 (2021) and the OWASP Top 10 for LLM Applications (2025): SQL injection, IDOR, stored XSS, weak password storage, no brute-force protection, broken transfer logic, and the model-specific ones like prompt injection, system-prompt leakage, excessive agency and unsafe output handling. Each is tagged in the code and covered by a test that proves it fires in vulnerable mode and is blocked in secure mode.
+There are 12 vulnerabilities from the OWASP Top 10 (2021) and the OWASP Top 10 for LLM Applications (2025): SQL injection, IDOR, stored XSS, MD5 passwords, no brute-force protection, broken transfer logic, prompt injection (direct and indirect), leaking another customer's data, system prompt leakage, transfers without confirmation and XSS in the assistant's output. Each one is marked in the code with a `VULN-XX` comment and has a test that checks it works in vulnerable mode and is blocked in secure mode.
 
-## Inside
+## What's in it
 
-A complete customer side (accounts, transfers, cards, bill payments, transaction history, an AI assistant) and a small admin panel, on a FastAPI backend with raw SQLite. Sensitive fields (IBAN, national ID, phone) are encrypted with AES-256-GCM, so a stolen copy of the database still gives nothing away.
+Customer pages (accounts, transfers, cards, bill payments, transaction history, the AI assistant) and a small admin panel. The backend is FastAPI with plain SQLite. IBAN, national ID and phone number are stored encrypted with AES-256-GCM, so a copy of the database file doesn't show them.
 
 ## Stack
 
-Python 3.11, FastAPI, Jinja2, SQLite (no ORM), Tailwind, bcrypt, the `cryptography` library, and pytest.
+Python 3.11, FastAPI, Jinja2, SQLite (no ORM), Tailwind, bcrypt, `cryptography`, pytest. The assistant uses the DeepSeek API.
 
 ## Run
 
@@ -24,17 +24,17 @@ python -m scripts.seed
 uvicorn app.main:app --reload
 ```
 
-Open http://127.0.0.1:8000. The seed script prints the demo logins. Full setup, the vulnerability map and the test users are in [docs/kurulum-ve-aciklar.md](docs/kurulum-ve-aciklar.md), and each attack has a step-by-step note under [docs/attacks/](docs/attacks/).
+Open http://127.0.0.1:8000. The seed script prints the demo logins. Setup details, the list of vulnerabilities and the test users are in [docs/kurulum-ve-aciklar.md](docs/kurulum-ve-aciklar.md). Each attack has its own step-by-step note in [docs/attacks/](docs/attacks/).
 
-Beyond the per-mode unit tests, each LLM attack was also run 10 times against the live model in both modes; the measurement script and what the numbers say about relying on a model's own guardrails are in [docs/attacks/canli-olcum.md](docs/attacks/canli-olcum.md).
+The unit tests use a fake LLM. I also ran each LLM attack 10 times against the real model in both modes; the script and the results are in [docs/attacks/canli-olcum.md](docs/attacks/canli-olcum.md).
 
 ## Note
 
-Insecure by design, for learning only. Run it on your own machine and nowhere else. The bank, the customers, the IBANs and the ID numbers are all made up.
+This app is insecure on purpose and only for learning. Run it on your own machine only. The bank, customers, IBANs and ID numbers are all fake.
 
 ## Türkçe
 
-Yapay zekâ destekli bankacılığın güvenliği üzerine bitirme projesi. Çalışan bir internet bankacılığı sitesi ve bir AI asistanı; `.env` içindeki `SECURE_MODE` ile aynı uygulama hem açık hem güvenli modda çalışır. OWASP Top 10 ve OWASP LLM Top 10 kapsamında 12 açık var, her biri hem kodda işaretli hem testli. Kurulum adımları, açık haritası ve adım adım saldırı notları `docs/` klasöründe. Yalnızca localhost üzerinde çalışır, tüm veriler uydurmadır.
+Yapay zekâ destekli bankacılığın güvenliği üzerine bitirme projem. AI asistanı olan basit bir internet bankacılığı sitesi. `.env` içindeki `SECURE_MODE` ile aynı uygulama açık ya da güvenli modda çalışıyor. OWASP Top 10 ve OWASP LLM Top 10'dan 12 açık var, her biri kodda işaretli ve testi yazılı. Kurulum, açık listesi ve saldırı notları `docs/` klasöründe. Sadece localhost'ta çalışır, bütün veriler uydurma.
 
 ## References
 

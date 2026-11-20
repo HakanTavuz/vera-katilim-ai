@@ -37,6 +37,6 @@ Araçlar ham değil maskeli veri döner, model cevabı da `mask_sensitive()` ile
 
 ## Notlar
 
-- Deneme sayısı / başarı: N=10 — Açık mod 0/10, güvenli mod 0/10 (açık modda model kendi hizalamasıyla reddetti; kod yine de açık, bkz. birim test)
+- Deneme sayısı / başarı: N=10. Açık mod 0/10, güvenli mod 0/10 (açık modda model kendisi reddetti; kod yine de açık, bkz. birim test)
 - Kullanılan araç: `scripts/measure_llm.py` (DeepSeek deepseek-chat, temperature 0.3)
-- Ayrıntılı bulgular ve yorum: [canli-olcum.md](canli-olcum.md)
+- Ayrıntılar: [canli-olcum.md](canli-olcum.md)

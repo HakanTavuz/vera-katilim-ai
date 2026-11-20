@@ -23,7 +23,7 @@ bir hesaptan para çekilebilir.
 
 ## 3. Ekran görüntüsü: açık mod
 
-`SECURE_MODE=false` — asistan onay beklemeden "gönderildi" diyor, bakiye anında düşüyor.
+`SECURE_MODE=false`: asistan onay beklemeden "gönderildi" diyor, bakiye anında düşüyor.
 
 ![VULN-10 saldırı](img/VULN-10-attack.jpg)
 
@@ -43,6 +43,6 @@ Güvenli modda araç sadece `transfer_drafts` tablosuna taslak yazar. Sohbette O
 
 ## Notlar
 
-- Deneme sayısı / başarı: N=10 — Açık mod 10/10, güvenli mod 0/10 (açık modda para anında gitti, güvenli modda yalnızca taslak)
+- Deneme sayısı / başarı: N=10. Açık mod 10/10, güvenli mod 0/10 (açık modda para anında gitti, güvenli modda yalnızca taslak)
 - Kullanılan araç: `scripts/measure_llm.py` (DeepSeek deepseek-chat, temperature 0.3)
-- Ayrıntılı bulgular ve yorum: [canli-olcum.md](canli-olcum.md)
+- Ayrıntılar: [canli-olcum.md](canli-olcum.md)

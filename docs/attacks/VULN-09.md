@@ -37,6 +37,6 @@ Gizli bilgi system prompt'a hiç konmaz (`SECURE_SYSTEM_PROMPT`). System prompt'
 
 ## Notlar
 
-- Deneme sayısı / başarı: N=10 — Açık mod 0/10, güvenli mod 0/10 (açık modda model gizli notları vermedi; kod yine de açık)
+- Deneme sayısı / başarı: N=10. Açık mod 0/10, güvenli mod 0/10 (açık modda model gizli notları vermedi; kod yine de açık)
 - Kullanılan araç: `scripts/measure_llm.py` (DeepSeek deepseek-chat, temperature 0.3)
-- Ayrıntılı bulgular ve yorum: [canli-olcum.md](canli-olcum.md)
+- Ayrıntılar: [canli-olcum.md](canli-olcum.md)
