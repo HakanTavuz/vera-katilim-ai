@@ -1,0 +1,63 @@
+{% extends "public_base.html" %}
+{% block title %}Şube & ATM{% endblock %}
+{% block body %}
+<section class="border-b border-cream-200 bg-cream-100">
+  <div class="mx-auto max-w-6xl px-4 py-12">
+    <h1 class="font-serif text-3xl text-navy-900 md:text-4xl">Şube &amp; ATM</h1>
+    <p class="mt-2 max-w-xl text-navy-600">Size en yakın VERA Katılım şubesini ve 7/24 hizmet veren ATM'lerini bulun.</p>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 py-12">
+  <div class="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+    <!-- stylized map -->
+    <div class="relative overflow-hidden rounded-3xl border border-cream-200 bg-gradient-to-br from-[#eaf1ec] to-[#dfe9e2]">
+      <svg viewBox="0 0 400 300" class="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="400" height="300" fill="#e7efe9"/>
+        <path d="M0 120 H400 M0 200 H400 M120 0 V300 M260 0 V300" stroke="#cfe0d4" stroke-width="6"/>
+        <path d="M60 60 H180 V140 H60 Z M220 160 H340 V250 H220 Z" fill="#d8e6dc"/>
+        <path d="M0 240 Q120 210 400 260" stroke="#bcd4c3" stroke-width="10" fill="none"/>
+        {% for x, y in [(120,120),(260,200),(190,75),(310,160),(80,210)] %}
+        <g transform="translate({{ x }},{{ y }})">
+          <circle r="14" fill="#17402F" opacity="0.15"/>
+          <path d="M0 -11 C7 -11 11 -6 11 0 C11 7 0 14 0 14 C0 14 -11 7 -11 0 C-11 -6 -7 -11 0 -11Z" fill="#17402F"/>
+          <circle cy="-1" r="3.4" fill="#fff"/>
+        </g>
+        {% endfor %}
+      </svg>
+      <span class="absolute bottom-4 left-4 rounded-lg bg-white/90 px-3 py-1.5 text-xs text-navy-600">Temsilî harita</span>
+    </div>
+
+    <!-- branch list -->
+    <div>
+      <div class="flex gap-3">
+        <div class="flex-1 rounded-2xl border border-cream-200 bg-white p-4 text-center">
+          <p class="font-serif text-2xl text-navy-900">38</p><p class="text-xs text-navy-600">Şube</p>
+        </div>
+        <div class="flex-1 rounded-2xl border border-cream-200 bg-white p-4 text-center">
+          <p class="font-serif text-2xl text-navy-900">1.250+</p><p class="text-xs text-navy-600">ATM</p>
+        </div>
+        <div class="flex-1 rounded-2xl border border-cream-200 bg-white p-4 text-center">
+          <p class="font-serif text-2xl text-navy-900">7/24</p><p class="text-xs text-navy-600">Hizmet</p>
+        </div>
+      </div>
+      <div class="mt-4 divide-y divide-cream-200 rounded-2xl border border-cream-200 bg-white">
+        {% for name, city, hours in [
+          ("Merkez Şube", "İstanbul · Levent", "09:00 – 17:00"),
+          ("Çankaya Şubesi", "Ankara · Çankaya", "09:00 – 17:00"),
+          ("Alsancak Şubesi", "İzmir · Alsancak", "09:00 – 17:00"),
+          ("Nilüfer Şubesi", "Bursa · Nilüfer", "09:00 – 17:00")
+        ] %}
+        <div class="flex items-center justify-between gap-3 px-5 py-4">
+          <div>
+            <p class="font-medium text-navy-900">{{ name }}</p>
+            <p class="text-sm text-navy-600">{{ city }}</p>
+          </div>
+          <span class="whitespace-nowrap text-sm text-copper-600">{{ hours }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

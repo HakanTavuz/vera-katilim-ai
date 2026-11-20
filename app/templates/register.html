@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Hesap aç{% endblock %}
+{% block content %}
+<div class="card mx-auto max-w-xl p-8">
+  <h1 class="text-2xl font-semibold text-navy-900">Hesap aç</h1>
+  <p class="mt-1 text-sm text-slate-500">Zaten müşteri misin? <a href="/login" class="font-medium text-navy-600 hover:underline">Giriş yap</a></p>
+  {% if error %}
+    <div class="mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{{ error }}</div>
+  {% endif %}
+  <form method="post" action="/register" class="mt-6 grid gap-4 sm:grid-cols-2">
+    <div class="sm:col-span-2">
+      <label class="label" for="full_name">Ad soyad</label>
+      <input class="input" id="full_name" name="full_name" value="{{ form.full_name or '' }}" required>
+    </div>
+    <div>
+      <label class="label" for="username">Kullanıcı adı</label>
+      <input class="input" id="username" name="username" value="{{ form.username or '' }}" required>
+    </div>
+    <div>
+      <label class="label" for="password">Parola</label>
+      <input class="input" id="password" name="password" type="password" autocomplete="new-password" required>
+    </div>
+    <div>
+      <label class="label" for="tc_kimlik_no">TC kimlik no</label>
+      <input class="input" id="tc_kimlik_no" name="tc_kimlik_no" inputmode="numeric" maxlength="11" value="{{ form.tc_kimlik_no or '' }}">
+    </div>
+    <div>
+      <label class="label" for="phone">Telefon</label>
+      <input class="input" id="phone" name="phone" value="{{ form.phone or '' }}" placeholder="0555 000 00 00">
+    </div>
+    <div class="sm:col-span-2">
+      <label class="label" for="address">Adres</label>
+      <input class="input" id="address" name="address" value="{{ form.address or '' }}">
+    </div>
+    <button class="btn sm:col-span-2">Hesabımı aç</button>
+  </form>
+</div>
+{% endblock %}

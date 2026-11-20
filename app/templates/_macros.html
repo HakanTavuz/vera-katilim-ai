@@ -1,0 +1,26 @@
+{% macro logo(height=34, subtitle=false, stack=true) %}
+<span class="inline-flex items-center gap-2.5 align-middle">
+  <svg width="{{ (height * 1.0) | round | int }}" height="{{ height }}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="shrink-0">
+    <defs>
+      <linearGradient id="veraGreen" x1="8" y1="8" x2="26" y2="40" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#163A2D"/><stop offset="1" stop-color="#2D6A4F"/>
+      </linearGradient>
+      <linearGradient id="veraCopper" x1="24" y1="40" x2="42" y2="6" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#A0562E"/><stop offset="1" stop-color="#C86D3B"/>
+      </linearGradient>
+    </defs>
+    <path d="M9 10 L23 36" stroke="url(#veraGreen)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M23 36 L39 11" stroke="url(#veraCopper)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M39 11 L31.5 13 M39 11 L37 18.5" stroke="url(#veraCopper)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span class="flex flex-col leading-none">
+    <span class="flex items-baseline gap-1.5" style="font-size: {{ (height * 0.62) | round | int }}px">
+      <span class="font-extrabold tracking-tight text-[#1E4D3B]">VERA</span>
+      <span class="font-bold tracking-tight text-[#C86D3B]">KATILIM</span>
+    </span>
+    {% if subtitle %}
+    <span class="mt-1 font-mono tracking-[0.25em] text-[#7a756d]" style="font-size: {{ (height * 0.26) | round | int }}px">DİJİTAL KATILIM BANKASI</span>
+    {% endif %}
+  </span>
+</span>
+{% endmacro %}

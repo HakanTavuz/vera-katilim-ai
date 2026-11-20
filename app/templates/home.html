@@ -1,0 +1,289 @@
+{% extends "public_base.html" %}
+{% block title %}Ana sayfa{% endblock %}
+{% block body %}
+
+<!-- hero: campaign carousel + financing calculator -->
+<section class="mx-auto max-w-6xl px-4 pt-6 md:pt-8">
+  <div class="grid gap-5 lg:grid-cols-[1fr_380px]">
+
+    <div data-carousel data-autoplay="5500" class="relative overflow-hidden rounded-3xl">
+      <div class="car-track flex transition-transform duration-500 ease-out">
+        <article class="car-slide relative w-full shrink-0 brand-band">
+          <div class="relative z-10 max-w-md px-8 py-14 md:px-12 md:py-20 text-white">
+            <span class="pill bg-white/10 text-copper-100">Sürdürülebilirlik</span>
+            <h2 class="mt-4 font-serif text-3xl font-semibold leading-tight md:text-[2.6rem]">Net Sıfır Perspektifi, Yeşil Finansman</h2>
+            <p class="mt-3 max-w-sm text-cream-100/90">Çevreye duyarlı projelerinizi faizsiz, kâr payı esaslı finansmanla hayata geçirin.</p>
+            <a href="/urunler" class="mt-6 inline-flex items-center gap-2 font-semibold text-copper-400 hover:text-copper-100">Detaylı bilgi <span aria-hidden="true">→</span></a>
+          </div>
+          <svg class="pointer-events-none absolute bottom-0 right-0 h-40 w-2/3 text-white/10 md:h-56" viewBox="0 0 400 160" fill="currentColor" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
+            <rect x="20" y="70" width="34" height="90"/><rect x="64" y="40" width="30" height="120"/><rect x="104" y="90" width="26" height="70"/><rect x="140" y="20" width="32" height="140"/><rect x="182" y="60" width="28" height="100"/><rect x="220" y="100" width="24" height="60"/><rect x="254" y="46" width="30" height="114"/><rect x="294" y="80" width="26" height="80"/><rect x="330" y="30" width="30" height="130"/>
+          </svg>
+        </article>
+        <article class="car-slide relative w-full shrink-0 bg-gradient-to-br from-[#A4572A] via-copper-500 to-[#7f461f]">
+          <div class="relative z-10 max-w-md px-8 py-14 md:px-12 md:py-20 text-white">
+            <span class="pill bg-white/15 text-white">Yeni müşteri</span>
+            <h2 class="mt-4 font-serif text-3xl font-semibold leading-tight md:text-[2.6rem]">Dakikalar içinde katılım hesabı</h2>
+            <p class="mt-3 max-w-sm text-white/90">Şubeye gitmeden hesabınızı açın, VeraCard'ınızı anında tanımlayın.</p>
+            <a href="/register" class="mt-6 inline-flex items-center gap-2 font-semibold text-white hover:text-cream-100">Hemen başla <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <article class="car-slide relative w-full shrink-0 bg-gradient-to-br from-navy-800 via-navy-700 to-navy-600">
+          <div class="relative z-10 max-w-md px-8 py-14 md:px-12 md:py-20 text-white">
+            <span class="pill bg-white/10 text-copper-100">Dijital asistan</span>
+            <h2 class="mt-4 font-serif text-3xl font-semibold leading-tight md:text-[2.6rem]">Bankacılığınız bir mesaj uzağında</h2>
+            <p class="mt-3 max-w-sm text-cream-100/90">Yapay zekâ asistanı bakiyenizi söyler, işlemlerinizi özetler, transferi başlatır.</p>
+            <a href="/login" class="mt-6 inline-flex items-center gap-2 font-semibold text-copper-400 hover:text-copper-100">İnternet şubesi <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      </div>
+      <div class="absolute bottom-5 left-8 flex items-center gap-4 md:left-12">
+        <div class="flex items-center gap-1.5" data-car-dots></div>
+        <button data-car-toggle class="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30" aria-label="Duraklat/oynat"><span data-car-icon>⏸</span></button>
+        <a href="/urunler" class="text-sm font-medium text-white/90 hover:text-white">Tüm Kampanyalar</a>
+      </div>
+    </div>
+
+    <!-- financing calculator (katılım: profit share, not interest) -->
+    <aside class="card p-6">
+      <div class="flex items-center justify-between">
+        <h2 class="font-serif text-xl text-navy-900">İhtiyaç Finansmanı</h2>
+        <a href="/register" class="text-sm font-medium text-copper-600 hover:underline">Müşteri Ol</a>
+      </div>
+      <label class="label mt-5" for="calc-amount">Tutar</label>
+      <div class="relative">
+        <input id="calc-amount" class="input pr-10 font-semibold" inputmode="numeric" value="100.000">
+        <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-navy-500">₺</span>
+      </div>
+      <label class="label mt-4" for="calc-term">Vade</label>
+      <select id="calc-term" class="input">
+        <option value="3">3 Ay</option><option value="6">6 Ay</option>
+        <option value="12" selected>12 Ay</option><option value="24">24 Ay</option><option value="36">36 Ay</option>
+      </select>
+      <dl class="mt-5 space-y-3 border-t border-cream-200 pt-4 text-sm">
+        <div class="flex items-center justify-between"><dt class="text-navy-600">Taksit Tutarı</dt><dd id="calc-installment" class="text-base font-bold text-navy-900">—</dd></div>
+        <div class="flex items-center justify-between"><dt class="text-navy-600">Aylık Kâr Payı Oranı*</dt><dd id="calc-rate" class="font-semibold text-navy-900">—</dd></div>
+        <div class="flex items-center justify-between"><dt class="text-navy-600">Toplam Geri Ödeme</dt><dd id="calc-total" class="font-semibold text-copper-600">—</dd></div>
+      </dl>
+      <p class="mt-3 text-xs leading-relaxed text-navy-500">*Yeni müşterilerimize sunulan örnek kâr payı oranıdır. Faizsiz, katılım esaslıdır; müşteri özelinde değişebilir.</p>
+      <a href="/register" class="btn btn-copper mt-4 w-full">Hemen Başvur →</a>
+    </aside>
+  </div>
+</section>
+
+<!-- başvuru merkezi: illustrated carousel with Bireysel / KOBİ tabs -->
+<section class="mx-auto max-w-6xl px-4 py-14 md:py-16">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <h2 class="font-serif text-3xl text-navy-900 md:text-4xl">Başvuru Merkezi</h2>
+    <div class="inline-flex rounded-xl border border-cream-200 bg-white p-1 text-sm" role="tablist">
+      <button class="seg-tab is-active" data-seg="bireysel" role="tab">Bireysel</button>
+      <button class="seg-tab" data-seg="kobi" role="tab">KOBİ</button>
+    </div>
+  </div>
+
+  {% set panes = {
+    "bireysel": [
+      ("Kredi Başvurusu", "Nakit ihtiyaçlarınız için size en uygun faizsiz finansmana, dilediğiniz kanaldan kolayca başvurun.", "bag"),
+      ("Konut Finansmanı", "Ev sahibi olmanın katılım esaslı, şeffaf yolu. Ön onayınızı dakikalar içinde alın.", "house"),
+      ("VeraCard", "Aidatsız banka kartınızı anında tanımlayın, harcamalarınızı tek ekrandan yönetin.", "card")
+    ],
+    "kobi": [
+      ("İşletme Finansmanı", "KOBİ'lerin nakit ihtiyacı için faizsiz, esnek işletme sermayesi çözümleri.", "shop"),
+      ("POS & Tahsilat", "Günlük tahsilatlarınızı tek ekranda toplayın, gün sonunu kolayca kapatın.", "pos"),
+      ("Dış Ticaret", "İthalat ve ihracat işlemlerinizde akreditif ve havale desteği.", "globe")
+    ]
+  } %}
+
+  {% for seg, slides in panes.items() %}
+  <div data-seg-panel="{{ seg }}" class="mt-6 {{ 'hidden' if seg == 'kobi' }}">
+    <div data-carousel data-autoplay="7000" class="relative overflow-hidden rounded-3xl border border-cream-200 bg-white">
+      <div class="car-track flex transition-transform duration-500 ease-out">
+        {% for title, desc, icon in slides %}
+        <article class="car-slide grid w-full shrink-0 items-center gap-6 p-8 md:grid-cols-2 md:p-12">
+          <div>
+            <h3 class="font-serif text-2xl text-navy-900 md:text-3xl">{{ title }}</h3>
+            <p class="mt-3 max-w-md text-navy-600">{{ desc }}</p>
+            <a href="/register" class="btn btn-copper mt-6 px-6 py-3">Başvur →</a>
+          </div>
+          <div class="flex justify-center">
+            <div class="flex h-44 w-44 items-center justify-center rounded-full bg-gradient-to-br from-cream-100 to-cream-200 md:h-56 md:w-56">
+              <svg class="h-24 w-24 text-navy-800 md:h-28 md:w-28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                {% if icon == 'bag' %}<path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 016 0"/>
+                {% elif icon == 'house' %}<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>
+                {% elif icon == 'card' %}<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/>
+                {% elif icon == 'shop' %}<path d="M4 9l1-4h14l1 4"/><path d="M4 9v11h16V9"/><path d="M4 9a2 2 0 004 0 2 2 0 004 0 2 2 0 004 0 2 2 0 004 0"/><path d="M9 20v-5h4v5"/>
+                {% elif icon == 'pos' %}<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 7h6"/><path d="M9 11h2M13 11h2M9 14h2M13 14h2"/>
+                {% else %}<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 010 18 14 14 0 010-18"/>{% endif %}
+              </svg>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+
+      <button data-car-prev class="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-cream-100 text-navy-800 shadow hover:bg-cream-200" aria-label="Önceki">‹</button>
+      <button data-car-next class="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-cream-100 text-navy-800 shadow hover:bg-cream-200" aria-label="Sonraki">›</button>
+
+      <div class="flex items-center gap-4 px-8 pb-6 md:px-12">
+        <div class="flex items-center gap-1.5" data-car-dots data-dot-dark></div>
+        <button data-car-toggle class="flex h-7 w-7 items-center justify-center rounded-full bg-cream-200 text-navy-800 hover:bg-cream-300" aria-label="Duraklat/oynat"><span data-car-icon>⏸</span></button>
+        <a href="/register" class="text-sm font-medium text-copper-600 hover:underline">Tüm Başvurular</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+<!-- piyasa verileri + duyurular -->
+<section class="border-y border-cream-200 bg-cream-100">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[1.6fr_1fr]">
+    <div>
+      <h2 class="font-serif text-2xl text-navy-900">Piyasa Verileri</h2>
+      <div id="market" class="mt-6 grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-3 lg:grid-cols-5"
+           data-rows='[
+             {"k":"BIST 100","v":11400.09,"d":-0.67},
+             {"k":"USD/TRY","v":50.4671,"d":0.05},
+             {"k":"EUR/TRY","v":55.5749,"d":0.29},
+             {"k":"GBP/TRY","v":66.3485,"d":0.01},
+             {"k":"Gram Altın","v":5312.40,"d":-1.16}
+           ]'></div>
+      <p class="mt-6 text-xs text-navy-500">Son güncelleme: <span id="market-updated">—</span> · Veriler temsilidir, yatırım tavsiyesi değildir.</p>
+    </div>
+
+    <div class="lg:border-l lg:border-cream-200 lg:pl-10">
+      <h2 class="font-serif text-2xl text-navy-900">Duyurular</h2>
+      <div data-carousel data-autoplay="6000" class="mt-6 overflow-hidden">
+        <div class="car-track flex transition-transform duration-500 ease-out">
+          {% for date, text in [
+            ("27.11.2026", "Katılım esaslı bankacılık ilkelerine ilişkin müşteri aydınlatma metni yayımlanmıştır."),
+            ("19.11.2026", "VeraCard temassız işlem limitleri güncellenmiştir. Ayrıntılar internet şubesinde."),
+            ("05.11.2026", "Yıl sonu katılım hesabı kâr payı dağıtım takvimi açıklanmıştır.")
+          ] %}
+          <article class="car-slide w-full shrink-0 pr-2">
+            <p class="text-sm font-medium text-copper-600">{{ date }}</p>
+            <p class="mt-2 leading-relaxed text-navy-800">{{ text }}</p>
+          </article>
+          {% endfor %}
+        </div>
+        <div class="mt-5 flex items-center gap-1.5" data-car-dots data-dot-dark></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- döviz çevirici -->
+<section class="mx-auto max-w-6xl px-4 py-14">
+  <div class="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
+    <div>
+      <h2 class="font-serif text-3xl text-navy-900">Döviz Çevirici</h2>
+      <p class="mt-3 max-w-md text-navy-600">Güncel kurlarla hızlıca hesaplayın. Katılım esaslı döviz işlemlerinizi internet şubesinden gerçekleştirebilirsiniz.</p>
+      <ul class="mt-6 space-y-2 text-sm text-navy-700">
+        <li class="flex items-center gap-2"><span class="text-copper-500">●</span> 20+ para birimi</li>
+        <li class="flex items-center gap-2"><span class="text-copper-500">●</span> Gram altın alım-satımı</li>
+        <li class="flex items-center gap-2"><span class="text-copper-500">●</span> Anlık kur bildirimleri</li>
+      </ul>
+    </div>
+
+    <div id="converter" class="card p-6"
+         data-rates='{"TRY":1,"USD":50.4671,"EUR":55.5749,"GBP":66.3485,"XAU":5312.40}'>
+      <label class="label" for="conv-amount">Tutar</label>
+      <input id="conv-amount" class="input font-semibold" inputmode="decimal" value="100">
+      <div class="mt-4 grid grid-cols-[1fr_auto_1fr] items-end gap-3">
+        <div>
+          <label class="label" for="conv-from">Çevrilen</label>
+          <select id="conv-from" class="input">
+            <option value="USD" selected>USD</option><option value="EUR">EUR</option>
+            <option value="GBP">GBP</option><option value="XAU">Gram Altın</option><option value="TRY">TRY</option>
+          </select>
+        </div>
+        <button id="conv-swap" class="mb-1 flex h-10 w-10 items-center justify-center rounded-full bg-cream-100 text-navy-800 hover:bg-cream-200" aria-label="Yönü değiştir">⇄</button>
+        <div>
+          <label class="label" for="conv-to">Hedef</label>
+          <select id="conv-to" class="input">
+            <option value="TRY" selected>TRY</option><option value="USD">USD</option>
+            <option value="EUR">EUR</option><option value="GBP">GBP</option><option value="XAU">Gram Altın</option>
+          </select>
+        </div>
+      </div>
+      <div class="mt-5 rounded-xl bg-cream-100 px-4 py-4 text-center">
+        <p id="conv-result" class="font-serif text-2xl font-semibold text-navy-900">—</p>
+        <p id="conv-rate" class="mt-1 text-xs text-navy-500">—</p>
+      </div>
+      <p class="mt-3 text-xs text-navy-500">Kurlar temsilîdir, gerçek işlem kuru farklılık gösterebilir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- mobil uygulama -->
+<section class="brand-band text-cream-100">
+  <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 md:grid-cols-2 md:py-16">
+    <div>
+      <span class="pill bg-white/10 text-copper-100">VERA Mobil</span>
+      <h2 class="mt-4 font-serif text-3xl font-semibold md:text-4xl">Bankanız cebinizde</h2>
+      <p class="mt-3 max-w-md text-cream-100/90">Hesabınızı yönetin, kartınızı dondurun, QR ile ödeyin ve yapay zekâ asistanına her an ulaşın.</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="/register" class="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2.5 hover:bg-white/15">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2c.1 1-.3 2-1 2.8-.7.8-1.7 1.3-2.7 1.2-.1-1 .4-2 1-2.7.7-.8 1.8-1.3 2.7-1.3zM19 17.5c-.5 1.2-.8 1.7-1.5 2.7-1 1.4-2.3 3.1-4 3.1-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.8-2.9C1.4 18 1 14.6 2.4 12.4c.9-1.4 2.4-2.3 4-2.3 1.5 0 2.5 1 3.7 1 1.2 0 1.9-1 3.7-1 1.4 0 2.8.7 3.8 2-3.3 1.8-2.8 6.5 1.4 5.4z"/></svg>
+          <span class="text-left text-xs leading-tight"><span class="block text-cream-100/70">İndir</span><span class="text-sm font-semibold">App Store</span></span>
+        </a>
+        <a href="/register" class="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2.5 hover:bg-white/15">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3l10.3 9.7L3.6 21.7c-.3-.2-.5-.6-.5-1.1V3.4c0-.5.2-.9.5-1.1zm12 7.4l2.6 2.3-2.6 2.3-2.5-2.3 2.5-2.3zM5.2 1.6l9 5.1-2 1.9-7-7zm0 20.8l7-7 2 1.9-9 5.1z"/></svg>
+          <span class="text-left text-xs leading-tight"><span class="block text-cream-100/70">İndir</span><span class="text-sm font-semibold">Google Play</span></span>
+        </a>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <svg viewBox="0 0 220 320" class="h-72 w-auto drop-shadow-2xl" aria-hidden="true">
+        <rect x="20" y="8" width="180" height="304" rx="28" fill="#0a1a13" stroke="#20402f" stroke-width="2"/>
+        <rect x="30" y="20" width="160" height="280" rx="20" fill="#f6f1e8"/>
+        <rect x="88" y="26" width="44" height="8" rx="4" fill="#0a1a13"/>
+        <rect x="42" y="48" width="136" height="72" rx="14" fill="#17402F"/>
+        <text x="54" y="74" fill="#cfe0d4" font-family="sans-serif" font-size="9">Kullanılabilir bakiye</text>
+        <text x="54" y="96" fill="#ffffff" font-family="serif" font-size="19" font-weight="700">24.850,00 ₺</text>
+        <rect x="54" y="104" width="70" height="6" rx="3" fill="#c06a38"/>
+        {% for i in range(4) %}
+        <rect x="42" y="{{ 134 + i*34 }}" width="136" height="26" rx="9" fill="#ffffff" stroke="#ece3d4"/>
+        <circle cx="58" cy="{{ 147 + i*34 }}" r="7" fill="#f4e2d2"/>
+        <rect x="74" y="{{ 142 + i*34 }}" width="60" height="6" rx="3" fill="#d9e1dc"/>
+        <rect x="150" y="{{ 142 + i*34 }}" width="22" height="6" rx="3" fill="#c06a38"/>
+        {% endfor %}
+        <circle cx="178" cy="286" r="14" fill="#17402F"/>
+        <path d="M172 286h12M178 280v12" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- SSS teaser -->
+<section class="mx-auto max-w-3xl px-4 py-14">
+  <div class="flex items-end justify-between gap-4">
+    <h2 class="font-serif text-3xl text-navy-900">Sıkça sorulanlar</h2>
+    <a href="/sss" class="text-sm font-medium text-copper-600 hover:underline">Tümünü gör</a>
+  </div>
+  <div class="mt-6 space-y-3">
+    {% for q, a in [
+      ("VERA Katılım nasıl bir banka?", "Faizsiz bankacılık ilkelerine göre çalışan dijital bir katılım bankasıdır; birikimler kâr payı esasıyla değerlendirilir."),
+      ("Hesap açmak ne kadar sürüyor?", "İnternet şubesinden kimlik bilgilerinizle dakikalar içinde hesabınızı açabilirsiniz."),
+      ("Faiz yerine kâr payı ne demek?", "Finansman ve birikimlerde faiz uygulanmaz; katılım esasına göre belirlenen kâr payı oranı kullanılır.")
+    ] %}
+    <details class="group rounded-2xl border border-cream-200 bg-white px-5 py-4">
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-navy-900">
+        {{ q }}<span class="text-copper-500 transition group-open:rotate-45">＋</span>
+      </summary>
+      <p class="mt-3 text-sm leading-relaxed text-navy-600">{{ a }}</p>
+    </details>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- stats -->
+<section class="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-12 text-center md:grid-cols-4">
+  {% for value, label in [("250B+", "Aktif müşteri"), ("%99,9", "Erişilebilirlik"), ("0 ₺", "Hesap aidatı"), ("7/24", "Canlı destek")] %}
+  <div>
+    <p class="font-serif text-3xl font-semibold text-navy-900">{{ value }}</p>
+    <p class="mt-1 text-sm text-navy-600">{{ label }}</p>
+  </div>
+  {% endfor %}
+</section>
+
+<script src="/static/js/home.js"></script>
+{% endblock %}

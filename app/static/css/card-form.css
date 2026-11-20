@@ -1,0 +1,68 @@
+/* Interactive VeraCard — a brand-themed, dependency-free take on the classic
+   flip-card form. No external images or frameworks, CSP-safe. */
+
+.cf { position: relative; }
+
+.cf-stage { perspective: 1200px; margin: 0 auto; max-width: 400px; position: relative; z-index: 2; }
+
+.cf-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.586 / 1;          /* ISO card ratio */
+  transform-style: preserve-3d;
+  transition: transform .7s cubic-bezier(.2,.8,.2,1);
+}
+.cf-card.is-flipped { transform: rotateY(180deg); }
+
+.cf-face {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  border-radius: 18px;
+  padding: 22px 24px;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 24px 50px -16px rgba(9,26,19,.55);
+  background:
+    radial-gradient(120% 140% at 100% 0%, rgba(192,106,56,.6) 0%, rgba(192,106,56,0) 46%),
+    linear-gradient(135deg, #0b1f16 0%, #123528 55%, #17402f 100%);
+}
+.cf-front { display: flex; flex-direction: column; justify-content: space-between; }
+.cf-back { transform: rotateY(180deg); padding: 0; }
+
+.cf-top { display: flex; align-items: center; justify-content: space-between; }
+.cf-chip {
+  width: 46px; height: 34px; border-radius: 7px;
+  background: linear-gradient(135deg, #e7b088, #c06a38);
+  position: relative;
+}
+.cf-chip::before, .cf-chip::after {
+  content: ""; position: absolute; left: 10%; right: 10%; height: 1px; background: rgba(0,0,0,.25);
+}
+.cf-chip::before { top: 38%; } .cf-chip::after { top: 62%; }
+.cf-brand { font-family: "Lora", serif; font-weight: 700; letter-spacing: .04em; }
+.cf-brand span { color: #e7b088; }
+
+.cf-number {
+  font-family: "Source Code Pro", ui-monospace, monospace;
+  font-size: clamp(1.1rem, 4.6vw, 1.5rem);
+  letter-spacing: .08em;
+  text-shadow: 0 2px 4px rgba(0,0,0,.35);
+  display: flex; gap: .55ch;
+}
+.cf-number b { font-weight: 500; transition: color .2s; min-width: .6ch; text-align: center; }
+.cf-number b.is-dim { color: rgba(255,255,255,.45); }
+
+.cf-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.cf-label { font-size: .6rem; text-transform: uppercase; letter-spacing: .14em; color: rgba(255,255,255,.6); }
+.cf-value { font-size: .95rem; text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 15ch; }
+
+.cf-band { height: 44px; margin-top: 26px; background: #06130d; }
+.cf-cvvrow { padding: 14px 20px; }
+.cf-cvvlabel { font-size: .6rem; text-transform: uppercase; letter-spacing: .14em; color: rgba(255,255,255,.6); text-align: right; }
+.cf-cvvbox { margin-top: 6px; height: 40px; border-radius: 6px; background: #fff; color: #10213b;
+  display: flex; align-items: center; justify-content: flex-end; padding: 0 12px; font-family: "Source Code Pro", monospace; letter-spacing: .25em; }
+.cf-cvvnote { margin-top: 16px; padding: 0 20px; font-size: .7rem; color: rgba(255,255,255,.55); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-card { transition: none; }
+}

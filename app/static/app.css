@@ -1,0 +1,122 @@
+body { font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif; }
+
+/* Lora for section/display headings */
+.font-serif, .serif-title { font-family: "Lora", Georgia, Cambria, "Times New Roman", serif; }
+
+/* deep green brand band with a copper diagonal sweep (VERA answer to QNB's magenta) */
+.brand-band {
+  background:
+    radial-gradient(120% 140% at 100% 0%, rgba(192,106,56,0.55) 0%, rgba(192,106,56,0) 45%),
+    linear-gradient(120deg, #0b1f16 0%, #123528 55%, #16402f 100%);
+}
+
+/* dotted footer dividers, like the reference site */
+.footer-link { display:block; padding: .55rem 0; border-bottom: 1px dotted #cbbfae; color:#2d5a45; font-size:.95rem; }
+.footer-link:hover { color:#0f261c; }
+
+/* dark header nav (logged-in area) */
+.nav-link {
+  border-radius: 0.6rem;
+  padding: 0.4rem 0.8rem;
+  color: rgb(203 213 225);
+  white-space: nowrap;
+}
+.nav-link:hover { background: rgb(255 255 255 / 0.08); color: #fff; }
+
+/* light app nav (logged-in internet branch) */
+.app-link {
+  border-radius: 0.6rem;
+  padding: 0.4rem 0.7rem;
+  color: #42506a;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.app-link:hover { color: #10213b; background: #f1eadd; }
+
+/* light public nav (homepage / products) */
+.pub-link {
+  border-radius: 0.6rem;
+  padding: 0.45rem 0.85rem;
+  color: #42506a;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.pub-link:hover { color: #10213b; background: #f1eadd; }
+
+.mode-badge {
+  border-radius: 9999px;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.mode-vuln { background: #dc2626; color: #fff; }
+.mode-secure { background: #16a34a; color: #fff; }
+
+.card {
+  background: #fff;
+  border-radius: 1.1rem;
+  box-shadow: 0 1px 2px rgb(16 33 59 / 0.05), 0 10px 30px rgb(16 33 59 / 0.05);
+  border: 1px solid #efe7da;
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.7rem;
+  border: 1px solid #ddd3c3;
+  padding: 0.65rem 0.85rem;
+  background: #fff;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.input:focus { border-color: #2a4672; box-shadow: 0 0 0 3px rgb(42 70 114 / 0.14); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: 0.7rem;
+  padding: 0.65rem 1.2rem;
+  font-weight: 600;
+  background: #10213b;
+  color: #fff;
+  transition: background .15s, transform .05s;
+}
+.btn:hover { background: #1f3860; }
+.btn:active { transform: translateY(1px); }
+.btn-copper { background: #c2703a; }
+.btn-copper:hover { background: #a65a2a; }
+.btn-light { background: #f1eadd; color: #10213b; }
+.btn-light:hover { background: #e2d6c3; }
+.btn-outline { background: transparent; border: 1px solid #ddd3c3; color: #10213b; }
+.btn-outline:hover { background: #faf6ef; }
+
+.label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.35rem; color: #42506a; }
+
+.seg-tab {
+  border-radius: 0.6rem;
+  padding: 0.45rem 1rem;
+  font-weight: 600;
+  color: #42506a;
+}
+.seg-tab.is-active { background: #10213b; color: #fff; }
+
+.hero-dot { height: 4px; width: 22px; border-radius: 9999px; background: rgb(255 255 255 / 0.35); transition: background .2s, width .2s; }
+.hero-dot.is-active { background: #fff; width: 30px; }
+.hero-dot.is-dark { background: rgb(15 38 28 / 0.2); }
+.hero-dot.is-dark.is-active { background: #17402F; }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  border-radius: 9999px; padding: 0.3rem 0.8rem;
+  background: #f1eadd; color: #a65a2a; font-size: 0.8rem; font-weight: 600;
+}
+
+/* chat */
+.chat-msg { max-width: 85%; border-radius: 1rem; padding: 0.55rem 0.85rem; font-size: 0.9rem; line-height: 1.45; white-space: pre-wrap; word-break: break-word; }
+.chat-user { margin-left: auto; background: #10213b; color: #fff; border-bottom-right-radius: 0.25rem; }
+.chat-bot { background: #f6f1e8; color: #27324a; border-bottom-left-radius: 0.25rem; }
+.chat-error { background: #fef2f2; color: #991b1b; }
+
+#chat-panel[hidden] { display: none; }

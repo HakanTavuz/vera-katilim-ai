@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Kartlar{% endblock %}
+{% block head %}<link rel="stylesheet" href="/static/css/card-form.css">{% endblock %}
+{% block content %}
+<h1 class="font-serif text-2xl text-navy-900 md:text-3xl">Kartlarım</h1>
+<p class="mt-1 text-sm text-navy-600">VeraCard banka kartınızı buradan yönetin.</p>
+
+<div class="mt-6 grid gap-6 lg:grid-cols-3">
+  <!-- card visual -->
+  <section class="lg:col-span-2">
+    <div class="relative max-w-md overflow-hidden rounded-2xl bg-gradient-to-br from-navy-900 via-navy-800 to-navy-700 p-6 text-white shadow-xl">
+      <div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/5"></div>
+      <div class="flex items-center justify-between">
+        <span class="font-semibold tracking-wide">VeraCard</span>
+        <span class="text-xs tracking-[0.3em] text-copper-400">KATILIM</span>
+      </div>
+      <div class="mt-8 h-8 w-12 rounded-md bg-gradient-to-br from-copper-400 to-copper-600"></div>
+      <p class="mt-5 font-mono text-lg tracking-[0.18em] text-slate-100">{{ card_no }}</p>
+      <div class="mt-6 flex items-end justify-between">
+        <div>
+          <p class="text-[0.65rem] uppercase tracking-wide text-slate-400">Kart sahibi</p>
+          <p class="text-sm uppercase">{{ user.full_name }}</p>
+        </div>
+        <div>
+          <p class="text-[0.65rem] uppercase tracking-wide text-slate-400">Son kullanım</p>
+          <p class="text-sm">11/30</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-6 divide-y divide-cream-200">
+      {% for title, desc in [
+        ("Kartı dondur", "Kartı geçici olarak kullanıma kapat."),
+        ("Temassız ödeme", "Temassız işlemlere izin ver."),
+        ("Online alışveriş", "İnternetten ödemeleri aç veya kapat.")
+      ] %}
+      <label class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4">
+        <span>
+          <span class="block font-medium text-navy-900">{{ title }}</span>
+          <span class="block text-sm text-navy-600">{{ desc }}</span>
+        </span>
+        <input type="checkbox" {{ 'checked' if not loop.first }} class="h-5 w-5 shrink-0 cursor-pointer rounded accent-[#c2703a]">
+      </label>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- card info -->
+  <section class="card h-max p-6">
+    <h2 class="font-semibold text-navy-900">Kart bilgileri</h2>
+    <dl class="mt-4 space-y-3 text-sm">
+      <div class="flex justify-between"><dt class="text-navy-600">Kart tipi</dt><dd class="font-medium">Banka kartı</dd></div>
+      <div class="flex justify-between"><dt class="text-navy-600">Bağlı hesap</dt><dd class="font-mono">{{ masked_iban }}</dd></div>
+      <div class="flex justify-between"><dt class="text-navy-600">Kullanılabilir bakiye</dt><dd class="font-semibold">{{ account.balance | money }}</dd></div>
+      <div class="flex justify-between"><dt class="text-navy-600">Durum</dt><dd><span class="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700">Aktif</span></dd></div>
+    </dl>
+    <a href="/transfer" class="btn btn-copper mt-6 w-full">Para gönder</a>
+  </section>
+</div>
+
+<!-- interactive VeraCard preview (demo) -->
+<section class="mt-12">
+  <h2 class="font-serif text-xl text-navy-900 md:text-2xl">Yeni kart tanımla</h2>
+  <p class="mt-1 text-sm text-navy-600">Kart bilgilerini girdikçe önizleme canlı güncellenir. Bu bir demodur; hiçbir bilgi kaydedilmez veya gönderilmez.</p>
+
+  <div class="cf mt-6 grid gap-8 lg:grid-cols-2" data-cardform>
+    <div class="cf-stage">
+      <div class="cf-card" data-cf-card>
+        <div class="cf-face cf-front">
+          <div class="cf-top">
+            <div class="cf-chip"></div>
+            <div class="cf-brand">VERA<span>Card</span></div>
+          </div>
+          <div class="cf-number" data-cf-number></div>
+          <div class="cf-bottom">
+            <div><div class="cf-label">Kart sahibi</div><div class="cf-value" data-cf-name>AD SOYAD</div></div>
+            <div><div class="cf-label">Son kullanım</div><div class="cf-value" data-cf-exp>AA/YY</div></div>
+          </div>
+        </div>
+        <div class="cf-face cf-back">
+          <div class="cf-band"></div>
+          <div class="cf-cvvrow">
+            <div class="cf-cvvlabel">CVV</div>
+            <div class="cf-cvvbox" data-cf-cvv>•••</div>
+          </div>
+          <div class="cf-cvvnote">VeraCard · Katılım · önizleme</div>
+        </div>
+      </div>
+    </div>
+
+    <form class="cf-form card p-6" data-cf-formel>
+      <label class="label" for="cf-number">Kart numarası</label>
+      <input id="cf-number" class="input" data-cf-in="number" inputmode="numeric" autocomplete="off" placeholder="#### #### #### ####">
+      <label class="label mt-4" for="cf-name">Kart sahibi</label>
+      <input id="cf-name" class="input" data-cf-in="name" autocomplete="off" placeholder="Ad Soyad">
+      <div class="mt-4 grid grid-cols-[1fr_1fr_90px] gap-3">
+        <div>
+          <label class="label" for="cf-month">Ay</label>
+          <select id="cf-month" class="input" data-cf-in="month">
+            <option value="" selected disabled>AA</option>
+            {% for m in range(1, 13) %}<option value="{{ '%02d' % m }}">{{ '%02d' % m }}</option>{% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="label" for="cf-year">Yıl</label>
+          <select id="cf-year" class="input" data-cf-in="year"><option value="" selected disabled>YYYY</option></select>
+        </div>
+        <div>
+          <label class="label" for="cf-cvv">CVV</label>
+          <input id="cf-cvv" class="input" data-cf-in="cvv" inputmode="numeric" autocomplete="off" placeholder="•••" maxlength="4">
+        </div>
+      </div>
+      <button class="btn btn-copper mt-6 w-full">Kartı tanımla</button>
+      <p class="mt-3 text-sm text-emerald-600" data-cf-msg hidden>Demo tamamlandı — gerçek bir kart tanımlanmadı, hiçbir bilgi saklanmadı.</p>
+    </form>
+  </div>
+</section>
+
+<script src="/static/js/card-form.js"></script>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Başvurularım{% endblock %}
+{% set labels = {"pending": ("Onay bekliyor", "amber"), "processing": ("İşleniyor", "amber"),
+  "done": ("Tamamlandı", "emerald"), "cancelled": ("İptal edildi", "slate"),
+  "expired": ("Süresi doldu", "slate"), "failed": ("Başarısız", "rose")} %}
+{% block content %}
+<h1 class="font-serif text-2xl text-navy-900 md:text-3xl">Başvurularım</h1>
+<p class="mt-1 text-sm text-navy-600">Ürün başvurularınız ve asistan üzerinden oluşturduğunuz transfer talepleriniz.</p>
+
+<section class="mt-6">
+  <h2 class="font-serif text-lg text-navy-900">Ürün başvuruları</h2>
+  <div class="card mt-3 divide-y divide-cream-200">
+    {% for title, date, status, color in [
+      ("Konut Finansmanı ön başvurusu", "18 Kasım 2026", "Değerlendiriliyor", "amber"),
+      ("VeraCard limit artışı", "12 Kasım 2026", "Onaylandı", "emerald"),
+      ("Kâr payı hesabı açılışı", "05 Kasım 2026", "Tamamlandı", "emerald")
+    ] %}
+    <div class="flex items-center justify-between gap-4 px-5 py-4">
+      <div>
+        <p class="font-medium text-navy-900">{{ title }}</p>
+        <p class="text-xs text-navy-600">Başvuru tarihi · {{ date }}</p>
+      </div>
+      <span class="rounded-full bg-{{ color }}-100 px-2.5 py-0.5 text-xs font-medium text-{{ color }}-700">{{ status }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="mt-8">
+  <h2 class="font-serif text-lg text-navy-900">Asistan transfer talepleri</h2>
+  {% if drafts %}
+  <div class="card mt-3 divide-y divide-cream-200">
+    {% for d in drafts %}
+    {% set label = labels.get(d.status, (d.status, "slate")) %}
+    <div class="flex items-center justify-between gap-4 px-5 py-4">
+      <div>
+        <p class="font-medium text-navy-900">•••• {{ d.to_iban_last4 }} · {{ d.amount | money }}</p>
+        <p class="text-xs text-navy-600">{{ d.description or "Asistan ile transfer" }} · {{ d.created_at[:16] }}</p>
+      </div>
+      <span class="rounded-full bg-{{ label[1] }}-100 px-2.5 py-0.5 text-xs font-medium text-{{ label[1] }}-700">{{ label[0] }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card mt-3 p-8 text-center text-sm text-navy-600">
+    Henüz asistan üzerinden oluşturduğunuz bir transfer talebi yok.
+    <a href="/hesabim" class="mt-3 inline-block font-medium text-copper-600 hover:underline">Asistana sor</a>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

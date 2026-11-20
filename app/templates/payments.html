@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Ödemeler{% endblock %}
+{% block content %}
+<h1 class="font-serif text-2xl text-navy-900 md:text-3xl">Ödemeler</h1>
+<p class="mt-1 text-sm text-navy-600">Fatura ve düzenli ödemelerinizi tek ekrandan yönetin.</p>
+
+<div class="mt-6 grid gap-6 lg:grid-cols-3">
+  <section class="lg:col-span-2">
+    <h2 class="font-serif text-lg text-navy-900">Yaklaşan ödemeler</h2>
+    <div class="card mt-3 divide-y divide-cream-200">
+      {% for biller, kind, amount, due in [
+        ("Elektrik Dağıtım", "Elektrik", 48350, "25 Kasım"),
+        ("Su İdaresi", "Su", 21500, "28 Kasım"),
+        ("İnternet Hizmetleri", "İnternet", 39900, "02 Aralık"),
+        ("GSM Operatörü", "Telefon", 29900, "05 Aralık")
+      ] %}
+      <div class="flex items-center justify-between gap-4 px-5 py-4">
+        <div class="flex items-center gap-3">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-cream-100 text-copper-600">₺</span>
+          <div>
+            <p class="font-medium text-navy-900">{{ biller }}</p>
+            <p class="text-xs text-navy-600">{{ kind }} · Son ödeme {{ due }}</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="font-semibold text-navy-900">{{ amount | money }}</span>
+          <a href="/transfer" class="btn btn-copper px-4 py-1.5 text-sm">Öde</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <h2 class="mt-8 font-serif text-lg text-navy-900">Hızlı işlemler</h2>
+    <div class="mt-3 grid gap-4 sm:grid-cols-3">
+      {% for title in ["Fatura öde", "Kurum ekle", "Otomatik ödeme talimatı"] %}
+      <a href="/transfer" class="card flex flex-col items-start gap-3 p-5 transition hover:-translate-y-0.5">
+        <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#17402F]/10 text-[#17402F]">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+        </span>
+        <span class="font-medium text-navy-900">{{ title }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <aside class="card h-max p-6">
+    <h2 class="font-serif text-lg text-navy-900">Kullanılabilir bakiye</h2>
+    <p class="mt-2 text-3xl font-semibold text-navy-900">{{ account.balance | money }}</p>
+    <p class="mt-1 text-sm text-navy-600">Ödemeler bu hesaptan yapılır.</p>
+    <a href="/hesabim" class="btn btn-light mt-5 w-full">Hesabıma dön</a>
+  </aside>
+</div>
+{% endblock %}

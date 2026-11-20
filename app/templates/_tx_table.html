@@ -1,0 +1,28 @@
+{% if transactions %}
+<ul class="divide-y divide-slate-100">
+  {% for t in transactions %}
+  <li class="flex items-start gap-3 py-3">
+    <div class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full {{ 'bg-emerald-50 text-emerald-600' if t.amount > 0 else 'bg-rose-50 text-rose-600' }}">
+      {{ '↓' if t.amount > 0 else '↑' }}
+    </div>
+    <div class="min-w-0 flex-1">
+      <div class="flex flex-wrap items-baseline justify-between gap-x-3">
+        <p class="truncate font-medium text-slate-800">
+          {{ t.counterparty_name }} <span class="text-xs font-normal text-slate-400">•••• {{ t.counterparty_last4 }}</span>
+          {% if t.owner %}<span class="ml-1 rounded bg-slate-100 px-1.5 py-0.5 text-xs font-normal text-slate-500">hesap: {{ t.owner }}</span>{% endif %}
+        </p>
+        <p class="whitespace-nowrap font-semibold {{ 'text-emerald-600' if t.amount > 0 else 'text-rose-600' }}">
+          {{ '+' if t.amount > 0 }}{{ t.amount | money }}
+        </p>
+      </div>
+      <div class="mt-0.5 flex flex-wrap justify-between gap-x-3 text-sm text-slate-500">
+        <p class="break-words">{{ t.description }}</p>
+        <p class="whitespace-nowrap text-xs">{{ t.created_at[:16] }}</p>
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="py-8 text-center text-sm text-slate-500">Gösterilecek işlem yok.</p>
+{% endif %}

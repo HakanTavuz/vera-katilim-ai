@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Ana sayfa{% endblock %}
+{% block content %}
+{% if flash %}
+  <div class="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{{ flash }}</div>
+{% endif %}
+
+<p class="text-sm text-slate-500">Merhaba,</p>
+<h1 class="font-serif text-2xl text-navy-900 md:text-3xl">{{ user.full_name }}</h1>
+
+<div class="mt-6 grid gap-6 lg:grid-cols-3">
+  <section class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-navy-900 via-navy-800 to-navy-600 p-6 text-white shadow-lg lg:col-span-2">
+    <div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/5"></div>
+    <div class="absolute -bottom-16 right-16 h-48 w-48 rounded-full bg-white/5"></div>
+    <p class="text-sm text-slate-300">Vadesiz TL hesabı</p>
+    <p class="mt-2 text-4xl font-semibold tracking-tight">{{ account.balance | money }}</p>
+    <p class="mt-6 font-mono text-sm tracking-wider text-slate-300">{{ masked_iban }}</p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="/transfer" class="btn bg-white text-navy-900 hover:bg-slate-100">Para gönder</a>
+      <a href="/account/{{ account.id }}" class="btn bg-white/10 hover:bg-white/20">Hesap detayı</a>
+    </div>
+  </section>
+
+  <section class="card p-6">
+    <h2 class="font-serif text-lg text-navy-900">Asistana sor</h2>
+    <p class="mt-1 text-sm text-slate-500">Sağ alttaki sohbet balonundan VERA Katılım asistanına bakiyeni, son işlemlerini sorabilir veya transfer talimatı verebilirsin.</p>
+    <ul class="mt-4 space-y-2 text-sm text-slate-600">
+      <li class="rounded-lg bg-slate-50 px-3 py-2">"Bakiyem ne kadar?"</li>
+      <li class="rounded-lg bg-slate-50 px-3 py-2">"Son 5 işlemimi özetle"</li>
+      <li class="rounded-lg bg-slate-50 px-3 py-2">"TR00 … 0002 IBAN'ına 100 TL gönder"</li>
+    </ul>
+  </section>
+</div>
+
+<section class="card mt-6 p-6">
+  <div class="flex items-center justify-between">
+    <h2 class="font-serif text-lg text-navy-900">Son işlemler</h2>
+    <a href="/transactions" class="text-sm font-medium text-navy-600 hover:underline">Tümünü gör</a>
+  </div>
+  <div class="mt-2">{% include "_tx_table.html" %}</div>
+</section>
+{% endblock %}

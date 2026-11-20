@@ -1,0 +1,102 @@
+{% extends "public_base.html" %}
+{% block title %}Kurumsal{% endblock %}
+{% block body %}
+
+<!-- hero -->
+<section class="brand-band text-cream-100">
+  <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-20">
+    <div>
+      <span class="pill bg-white/10 text-copper-100">KOBİ &amp; Ticari</span>
+      <h1 class="mt-4 font-serif text-4xl font-semibold leading-tight md:text-5xl">İşletmeniz büyürken<br>yanınızdayız</h1>
+      <p class="mt-4 max-w-md text-cream-100/90">Faizsiz işletme finansmanından dış ticarete, tahsilattan nakit yönetimine; VERA Katılım işletmenizin her adımında katılım esaslı çözümler sunar.</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a href="/register" class="btn btn-copper px-6 py-3">Kurumsal başvuru</a>
+        <a href="/sube-atm" class="btn bg-white/10 px-6 py-3 text-white hover:bg-white/15">Temsilciyle görüş</a>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <svg viewBox="0 0 320 240" class="h-60 w-auto" aria-hidden="true">
+        <rect x="20" y="70" width="80" height="150" rx="6" fill="#1d4636"/>
+        <rect x="120" y="36" width="80" height="184" rx="6" fill="#255842"/>
+        <rect x="220" y="96" width="80" height="124" rx="6" fill="#1d4636"/>
+        {% for gx in [20,120,220] %}
+          {% for row in range(3) %}
+            <rect x="{{ gx + 14 }}" y="{{ 92 + row*34 + (0 if gx==120 else (34 if gx==20 else 0)) }}" width="20" height="16" rx="2" fill="#9fe0c2" opacity="0.5"/>
+            <rect x="{{ gx + 44 }}" y="{{ 92 + row*34 + (0 if gx==120 else (34 if gx==20 else 0)) }}" width="20" height="16" rx="2" fill="#e7b088" opacity="0.6"/>
+          {% endfor %}
+        {% endfor %}
+        <path d="M20 220h300" stroke="#9fe0c2" stroke-width="2" opacity="0.4"/>
+        <path d="M40 150 L120 110 L220 140 L300 90" stroke="#e7b088" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="300" cy="90" r="5" fill="#e7b088"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- product grid -->
+<section class="mx-auto max-w-6xl px-4 py-16">
+  <h2 class="font-serif text-3xl text-navy-900">Kurumsal ürünler</h2>
+  <p class="mt-2 max-w-xl text-navy-600">İşletmenizin ölçeğine ve sektörüne göre katılım esaslı çözümler.</p>
+  <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {% for title, desc, icon in [
+      ("İşletme Finansmanı", "Nakit akışınızı destekleyen faizsiz, esnek işletme sermayesi.", "M3 7h18v12H3z M3 11h18"),
+      ("POS & Tahsilat", "Fiziksel ve sanal POS ile günlük tahsilatlarınızı tek ekranda toplayın.", "M6 3h12v18H6z M9 7h6M9 11h6"),
+      ("Dış Ticaret", "Akreditif, teminat mektubu ve dış ticaret havalesinde uçtan uca destek.", "M3 12a9 9 0 1018 0 9 9 0 10-18 0 M3 12h18 M12 3a15 15 0 010 18"),
+      ("Ticari Kart", "Harcama limitleri, ekip kartları ve ayrıntılı gider raporları.", "M3 6h18v12H3z M3 10h18"),
+      ("Toplu Ödeme", "Maaş ve tedarikçi ödemelerinizi tek dosyayla yönetin.", "M4 6h16M4 12h16M4 18h10"),
+      ("Nakit Yönetimi", "Likiditenizi katılım havuzunda değerlendirin, kâr payı kazanın.", "M12 3v18M5 8h9a3 3 0 010 6H7")
+    ] %}
+    <article class="card p-6">
+      <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#17402F]/10 text-[#17402F]">
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ icon }}"/></svg>
+      </div>
+      <h3 class="mt-4 font-serif text-lg text-navy-900">{{ title }}</h3>
+      <p class="mt-2 text-sm leading-relaxed text-navy-600">{{ desc }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- sectors -->
+<section class="border-y border-cream-200 bg-cream-100">
+  <div class="mx-auto max-w-6xl px-4 py-14">
+    <h2 class="font-serif text-3xl text-navy-900">Sektörünüze özel</h2>
+    <div class="mt-6 flex flex-wrap gap-3">
+      {% for s in ["Üretim", "İnşaat", "Tarım", "Lojistik", "Perakende", "Sağlık", "Turizm", "Teknoloji", "Enerji"] %}
+      <span class="rounded-full border border-cream-300 bg-white px-4 py-2 text-sm font-medium text-navy-800">{{ s }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- process -->
+<section class="mx-auto max-w-6xl px-4 py-16">
+  <h2 class="font-serif text-3xl text-navy-900">Başvuru nasıl işler?</h2>
+  <ol class="mt-8 grid gap-6 md:grid-cols-4">
+    {% for step, title, desc in [
+      ("1", "Başvuru", "Kurumsal başvuru formunu doldurun."),
+      ("2", "Değerlendirme", "Uzman ekibimiz işletmenizi değerlendirir."),
+      ("3", "Teklif", "Size özel katılım esaslı teklifi sunarız."),
+      ("4", "Kullanım", "Onay sonrası finansmanı hemen kullanın.")
+    ] %}
+    <li class="relative">
+      <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#17402F] font-serif text-lg text-white">{{ step }}</div>
+      <h3 class="mt-3 font-semibold text-navy-900">{{ title }}</h3>
+      <p class="mt-1 text-sm text-navy-600">{{ desc }}</p>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+
+<!-- cta -->
+<section class="mx-auto max-w-6xl px-4 pb-20">
+  <div class="flex flex-col items-start justify-between gap-6 rounded-3xl bg-cream-100 p-8 md:flex-row md:items-center md:p-12">
+    <div>
+      <h2 class="font-serif text-2xl text-navy-900 md:text-3xl">İşletmeniz için doğru çözümü birlikte bulalım</h2>
+      <p class="mt-2 text-navy-600">Kurumsal müşteri temsilcimiz size en uygun paketi hazırlasın.</p>
+    </div>
+    <a href="/register" class="btn btn-copper px-7 py-3.5">Hemen başvur</a>
+  </div>
+</section>
+
+{% endblock %}

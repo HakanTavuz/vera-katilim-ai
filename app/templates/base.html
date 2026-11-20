@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="tr">
+{% from "_macros.html" import logo %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}VERA Katılım{% endblock %} · VERA Katılım</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="/static/js/tw-config.js"></script>
+  <link rel="stylesheet" href="/static/app.css">
+  {% block head %}{% endblock %}
+</head>
+<body class="min-h-screen bg-cream-50 text-navy-900 antialiased" data-secure-mode="{{ 'true' if secure_mode else 'false' }}">
+  <header class="sticky top-0 z-30 border-b border-cream-200 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
+      <a href="{{ '/admin' if user and user.role == 'admin' else ('/hesabim' if user else '/') }}" aria-label="VERA Katılım">{{ logo(32) }}</a>
+
+      {% if user %}
+      <nav class="hidden flex-1 items-center gap-0.5 text-sm md:flex">
+        {% if user.role == 'admin' %}
+          <a class="app-link" href="/admin/customers">Müşteriler</a>
+          <a class="app-link" href="/admin/suspicious">Şüpheli işlemler</a>
+        {% else %}
+          <a class="app-link" href="/hesabim">Hesabım</a>
+          <a class="app-link" href="/kartlar">Kartlar</a>
+          <a class="app-link" href="/transfer">Transfer</a>
+          <a class="app-link" href="/odemeler">Ödemeler</a>
+          <a class="app-link" href="/transactions">İşlemler</a>
+          <a class="app-link" href="/basvurularim">Başvurularım</a>
+          <a class="app-link" href="/profile">Profil</a>
+        {% endif %}
+      </nav>
+      {% else %}
+      <div class="flex-1"></div>
+      {% endif %}
+
+      <span class="mode-badge {{ 'mode-secure' if secure_mode else 'mode-vuln' }}"
+            title="Çalışma modu: SECURE_MODE={{ 'true' if secure_mode else 'false' }}">
+        {{ 'SECURE' if secure_mode else 'VULNERABLE' }}
+      </span>
+
+      {% if user %}
+      <div class="hidden items-center gap-3 md:flex">
+        <span class="text-sm font-medium text-navy-700">{{ user.full_name.split(' ')[0] }}</span>
+        <form method="post" action="/logout">
+          <button class="btn-outline rounded-lg px-3 py-1.5 text-sm">Çıkış</button>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+
+    {% if user %}
+    <nav class="flex gap-1 overflow-x-auto border-t border-cream-200 px-2 py-2 text-sm md:hidden">
+      {% if user.role == 'admin' %}
+        <a class="app-link" href="/admin/customers">Müşteriler</a>
+        <a class="app-link" href="/admin/suspicious">Şüpheli</a>
+      {% else %}
+        <a class="app-link" href="/hesabim">Hesabım</a>
+        <a class="app-link" href="/kartlar">Kartlar</a>
+        <a class="app-link" href="/transfer">Transfer</a>
+        <a class="app-link" href="/odemeler">Ödemeler</a>
+        <a class="app-link" href="/transactions">İşlemler</a>
+        <a class="app-link" href="/basvurularim">Başvurularım</a>
+        <a class="app-link" href="/profile">Profil</a>
+      {% endif %}
+      <form method="post" action="/logout" class="ml-auto"><button class="app-link">Çıkış</button></form>
+    </nav>
+    {% endif %}
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 py-6 md:py-10">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="mx-auto max-w-6xl px-4 pb-24 text-xs text-navy-500">
+    VERA Katılım · İnternet şubesi. Güvenlik eğitimi için geliştirilmiş demo; yalnızca yerel ortamda çalışır.
+  </footer>
+
+  {% if user and user.role == 'customer' %}
+    {% include "_chat.html" %}
+    <script src="/static/js/chat.js"></script>
+  {% endif %}
+</body>
+</html>

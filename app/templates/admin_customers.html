@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Müşteriler{% endblock %}
+{% block content %}
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div>
+    <p class="text-sm font-medium text-copper-600">Yönetim Paneli</p>
+    <h1 class="font-serif text-2xl text-navy-900 md:text-3xl">Müşteriler</h1>
+  </div>
+  <nav class="inline-flex rounded-xl border border-cream-200 bg-white p-1 text-sm">
+    <a href="/admin/customers" class="rounded-lg bg-navy-900 px-4 py-2 font-semibold text-white">Müşteriler</a>
+    <a href="/admin/suspicious" class="rounded-lg px-4 py-2 font-semibold text-navy-700 hover:bg-cream-100">Şüpheli işlemler</a>
+  </nav>
+</div>
+
+<div class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+  {% for label, value, tone in [
+    ("Toplam müşteri", stats.customers, "navy"),
+    ("Toplam bakiye", stats.total_balance | money, "copper"),
+    ("Kilitli hesap", stats.locked, "navy"),
+    ("Toplam işlem", stats.transactions, "navy")
+  ] %}
+  <div class="card p-5">
+    <p class="text-xs font-medium uppercase tracking-wide text-navy-500">{{ label }}</p>
+    <p class="mt-2 font-serif text-2xl font-semibold {{ 'text-copper-600' if tone == 'copper' else 'text-navy-900' }}">{{ value }}</p>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="card mt-6 overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="w-full min-w-[680px] text-left text-sm">
+      <thead class="border-b border-cream-200 text-xs uppercase tracking-wide text-navy-500">
+        <tr>
+          <th class="px-5 py-3 font-medium">Müşteri</th>
+          <th class="px-5 py-3 font-medium">IBAN</th>
+          <th class="px-5 py-3 text-right font-medium">Bakiye</th>
+          <th class="px-5 py-3 text-right font-medium">İşlem</th>
+          <th class="px-5 py-3 font-medium">Durum</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-cream-200">
+        {% for c in customers %}
+        <tr class="hover:bg-cream-50">
+          <td class="px-5 py-3">
+            <div class="flex items-center gap-3">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#17402F]/10 font-semibold text-[#17402F]">
+                {{ c.full_name.split(' ')[0][0] }}{{ c.full_name.split(' ')[-1][0] }}
+              </span>
+              <div>
+                <p class="font-medium text-navy-900">{{ c.full_name }}</p>
+                <p class="text-xs text-navy-500">{{ c.username }} · #{{ c.id }}</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-5 py-3 font-mono text-xs text-navy-700">{{ c.masked_iban }}</td>
+          <td class="px-5 py-3 text-right font-semibold {{ 'text-rose-600' if c.balance and c.balance < 0 else 'text-navy-900' }}">{{ (c.balance or 0) | money }}</td>
+          <td class="px-5 py-3 text-right text-navy-700">{{ c.tx_count }}</td>
+          <td class="px-5 py-3">
+            {% if c.locked_until %}
+              <span class="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700">Kilitli</span>
+            {% else %}
+              <span class="inline-flex items-center gap-1.5 text-xs text-navy-500"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> Aktif</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

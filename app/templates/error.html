@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="card mx-auto max-w-lg p-10 text-center">
+  <h1 class="text-xl font-semibold text-navy-900">{{ title }}</h1>
+  <p class="mt-2 text-slate-500">{{ message }}</p>
+  <a href="/" class="btn mt-6">Ana sayfaya dön</a>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "public_base.html" %}
+{% block title %}Sıkça Sorulan Sorular{% endblock %}
+{% block body %}
+<section class="border-b border-cream-200 bg-cream-100">
+  <div class="mx-auto max-w-6xl px-4 py-12">
+    <h1 class="font-serif text-3xl text-navy-900 md:text-4xl">Yardım &amp; SSS</h1>
+    <p class="mt-2 max-w-xl text-navy-600">En çok merak edilen soruların yanıtları. Aradığınızı bulamazsanız 0 850 000 0 850'yi arayın.</p>
+  </div>
+</section>
+
+<section class="mx-auto max-w-3xl px-4 py-12">
+  <div class="space-y-3">
+    {% for q, a in [
+      ("VERA Katılım nasıl bir banka?", "VERA Katılım, faizsiz bankacılık ilkelerine göre çalışan dijital bir katılım bankasıdır. Birikimler katılım havuzunda değerlendirilir ve kâr payı esasına göre paylaşılır."),
+      ("Hesap açmak ne kadar sürüyor?", "İnternet şubesinden kimlik bilgilerinizle dakikalar içinde hesabınızı açabilir, VeraCard'ınızı anında tanımlayabilirsiniz."),
+      ("Hesap ve kart aidatı var mı?", "Katılım hesabı ve VeraCard için aidat alınmaz. Ücretlendirme yapılan işlemler sözleşmede açıkça belirtilir."),
+      ("Faiz yerine kâr payı ne demek?", "Finansman ve birikimlerde faiz uygulanmaz. Bunun yerine, katılım esasına göre belirlenen kâr payı oranı kullanılır."),
+      ("Yapay zekâ asistanı güvenli mi?", "Asistan yalnızca giriş yapan müşterinin kendi hesabına erişir; kimlik doğrulama sunucu tarafında yapılır ve para transferleri onayınız olmadan gerçekleşmez."),
+      ("Param güvende mi?", "IBAN ve kimlik bilgileriniz uçtan uca AES-256 ile şifrelenir; ekranda yalnızca maskeli gösterilir.")
+    ] %}
+    <details class="group rounded-2xl border border-cream-200 bg-white px-5 py-4">
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-navy-900">
+        {{ q }}
+        <span class="text-copper-500 transition group-open:rotate-45">＋</span>
+      </summary>
+      <p class="mt-3 text-sm leading-relaxed text-navy-600">{{ a }}</p>
+    </details>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}İşlem geçmişi{% endblock %}
+{% block content %}
+<h1 class="font-serif text-2xl text-navy-900">İşlem geçmişi</h1>
+<form method="get" action="/transactions" class="card mt-6 flex flex-col gap-3 p-4 sm:flex-row">
+  <input class="input flex-1" name="q" value="{{ q }}" placeholder="Açıklama veya kişi ara">
+  <select class="input sm:w-44" name="direction">
+    <option value="all" {{ 'selected' if direction == 'all' }}>Tümü</option>
+    <option value="in" {{ 'selected' if direction == 'in' }}>Gelen</option>
+    <option value="out" {{ 'selected' if direction == 'out' }}>Giden</option>
+  </select>
+  <button class="btn">Filtrele</button>
+</form>
+<section class="card mt-6 p-6">
+  <p class="text-sm text-slate-500">{{ transactions | length }} işlem</p>
+  <div class="mt-2">{% include "_tx_table.html" %}</div>
+</section>
+{% endblock %}

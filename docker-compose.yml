@@ -1,0 +1,14 @@
+services:
+  securebank:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_PATH: /app/data/securebank.db
+    ports:
+      # only reachable from this machine, never from the network
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - bankdata:/app/data
+
+volumes:
+  bankdata:

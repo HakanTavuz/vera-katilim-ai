@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Profil{% endblock %}
+{% block content %}
+<h1 class="font-serif text-2xl text-navy-900">Profil</h1>
+<div class="card mt-6 max-w-2xl divide-y divide-slate-100">
+  {% for label, value in [("Ad soyad", user.full_name), ("Kullanıcı adı", user.username), ("TC kimlik no", masked_tc), ("Telefon", masked_phone), ("IBAN", masked_iban), ("Adres", user.address or "-")] %}
+  <div class="flex flex-col gap-1 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+    <span class="text-sm text-slate-500">{{ label }}</span>
+    <span class="font-medium text-slate-800 {{ 'font-mono' if label in ('TC kimlik no', 'IBAN', 'Telefon') }}">{{ value }}</span>
+  </div>
+  {% endfor %}
+</div>
+<p class="mt-3 max-w-2xl text-xs text-slate-500">TC kimlik no, telefon ve IBAN veritabanında AES-256-GCM ile şifreli saklanır, ekranda maskeli gösterilir.</p>
+{% endblock %}

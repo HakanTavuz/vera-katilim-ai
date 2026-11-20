@@ -1,0 +1,29 @@
+<h1 class="text-2xl font-semibold text-navy-900">Çerez tercihleri</h1>
+<p class="mt-2 max-w-xl text-sm text-navy-600">
+  VERA Katılım, internet şubesini güvenli ve kullanışlı tutmak için çerezler kullanır.
+  Zorunlu çerezler her zaman açıktır; diğerlerini siz seçersiniz. Tercihleriniz yalnızca bu tarayıcıda saklanır.
+</p>
+
+<div class="card mt-6 divide-y divide-cream-200">
+  {% for key, title, desc, locked in [
+    ("essential", "Zorunlu çerezler", "Oturum açma ve güvenlik için gereklidir, kapatılamaz.", true),
+    ("analytics", "Analitik çerezler", "Sayfaların nasıl kullanıldığını anonim olarak ölçmemize yardımcı olur.", false),
+    ("marketing", "Pazarlama çerezleri", "Size uygun kampanyaları göstermek için kullanılır.", false)
+  ] %}
+  <label class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4">
+    <span>
+      <span class="block font-medium text-navy-900">{{ title }}</span>
+      <span class="block text-sm text-navy-600">{{ desc }}</span>
+    </span>
+    <input type="checkbox" data-pref="{{ key }}" {{ 'checked disabled' if locked }}
+           class="h-5 w-5 shrink-0 cursor-pointer rounded accent-[#c2703a]">
+  </label>
+  {% endfor %}
+</div>
+
+<div class="mt-5 flex flex-wrap items-center gap-3">
+  <button id="cookie-save" class="btn btn-copper px-5 py-2.5">Tercihleri kaydet</button>
+  <span id="cookie-saved" class="text-sm text-emerald-600" hidden>Tercihleriniz kaydedildi.</span>
+</div>
+
+<script src="/static/js/cookie-prefs.js"></script>

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Para transferi{% endblock %}
+{% block content %}
+<div class="card mx-auto max-w-xl p-8">
+  <h1 class="font-serif text-2xl text-navy-900">Para transferi</h1>
+  <p class="mt-1 text-sm text-slate-500">VERA Katılım müşterilerine IBAN ile anında transfer.</p>
+  {% if error %}
+    <div class="mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{{ error }}</div>
+  {% endif %}
+  <form method="post" action="/transfer" class="mt-6 space-y-4">
+    <div>
+      <label class="label" for="to_iban">Alıcı IBAN</label>
+      <input class="input font-mono" id="to_iban" name="to_iban" placeholder="TR00 0000 ...." value="{{ form.to_iban if form else '' }}" required>
+    </div>
+    <div>
+      <label class="label" for="amount">Tutar (TL)</label>
+      <input class="input" id="amount" name="amount" inputmode="decimal" placeholder="250,00" value="{{ form.amount if form else '' }}" required>
+    </div>
+    <div>
+      <label class="label" for="description">Açıklama</label>
+      <input class="input" id="description" name="description" maxlength="500" value="{{ form.description if form else '' }}" placeholder="Kira, yemek, borç...">
+    </div>
+    <button class="btn w-full">Gönder</button>
+  </form>
+</div>
+{% endblock %}
