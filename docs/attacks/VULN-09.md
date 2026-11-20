@@ -19,7 +19,7 @@ Asistana dene:
 
 `SECURE_MODE=false`
 
-![VULN-09 saldırı](img/VULN-09-attack.png)
+![VULN-09 saldırı](img/VULN-09-attack.jpg)
 
 ## 4. Etki
 
@@ -33,7 +33,7 @@ Gizli bilgi system prompt'a hiç konmaz (`SECURE_SYSTEM_PROMPT`). System prompt'
 
 `SECURE_MODE=true`
 
-![VULN-09 engellendi](img/VULN-09-blocked.png)
+![VULN-09 engellendi](img/VULN-09-blocked.jpg)
 
 ## Notlar
 

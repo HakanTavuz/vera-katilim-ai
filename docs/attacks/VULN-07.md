@@ -18,7 +18,7 @@ Asistana sırayla şunları yaz:
 
 `SECURE_MODE=false`
 
-![VULN-07 saldırı](img/VULN-07-attack.png)
+![VULN-07 saldırı](img/VULN-07-attack.jpg)
 
 ## 4. Etki
 
@@ -33,7 +33,7 @@ Asıl savunma filtre değildir (filtre atlatılabilir): araçların yetkisi sunu
 
 `SECURE_MODE=true`
 
-![VULN-07 engellendi](img/VULN-07-blocked.png)
+![VULN-07 engellendi](img/VULN-07-blocked.jpg)
 
 ## Notlar
 

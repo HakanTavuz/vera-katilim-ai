@@ -18,7 +18,7 @@ Hesap sayfası ve API, URL'deki `account_id`'nin oturumdaki kullanıcıya ait ol
 
 `SECURE_MODE=false`
 
-![VULN-02 saldırı](img/VULN-02-attack.png)
+![VULN-02 saldırı](img/VULN-02-attack.jpg)
 
 ## 4. Etki
 
@@ -37,7 +37,7 @@ Yetkisiz erişimde 403 yerine 404 dönülür, böylece hangi id'lerin var olduğ
 
 `SECURE_MODE=true`
 
-![VULN-02 engellendi](img/VULN-02-blocked.png)
+![VULN-02 engellendi](img/VULN-02-blocked.jpg)
 
 ## Notlar
 

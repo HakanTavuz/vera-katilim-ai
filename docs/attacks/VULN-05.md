@@ -18,7 +18,7 @@ Parolalar tuzsuz MD5 ile saklanıyor. Aynı parola her zaman aynı hash'i verir 
 
 `SECURE_MODE=false`
 
-![VULN-05 saldırı](img/VULN-05-attack.png)
+![VULN-05 saldırı](img/VULN-05-attack.jpg)
 
 ## 4. Etki
 
@@ -38,7 +38,7 @@ bcrypt her parola için ayrı tuz kullanır ve bilerek yavaştır. Eski MD5 kay�
 
 `SECURE_MODE=true`
 
-![VULN-05 engellendi](img/VULN-05-blocked.png)
+![VULN-05 engellendi](img/VULN-05-blocked.jpg)
 
 ## Notlar
 

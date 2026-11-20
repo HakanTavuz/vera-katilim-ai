@@ -18,7 +18,7 @@ Araçlar `customer_id` / `account_id` parametresini modelden alıyor ve oturumda
 
 `SECURE_MODE=false`
 
-![VULN-08 saldırı](img/VULN-08-attack.png)
+![VULN-08 saldırı](img/VULN-08-attack.jpg)
 
 ## 4. Etki
 
@@ -33,7 +33,7 @@ Araçlar ham değil maskeli veri döner, model cevabı da `mask_sensitive()` ile
 
 `SECURE_MODE=true`
 
-![VULN-08 engellendi](img/VULN-08-blocked.png)
+![VULN-08 engellendi](img/VULN-08-blocked.jpg)
 
 ## Notlar
 

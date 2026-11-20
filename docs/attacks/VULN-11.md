@@ -19,7 +19,7 @@ Başka bir müşterinin yazdığı işlem açıklaması, asistana araç çıktı
 
 `SECURE_MODE=false`
 
-![VULN-11 saldırı](img/VULN-11-attack.png)
+![VULN-11 saldırı](img/VULN-11-attack.jpg)
 
 ## 4. Etki
 
@@ -34,7 +34,7 @@ Bunlar tek başına yeterli değildir; asıl koruma VULN-08 ve VULN-10 düzeltme
 
 `SECURE_MODE=true`
 
-![VULN-11 engellendi](img/VULN-11-blocked.png)
+![VULN-11 engellendi](img/VULN-11-blocked.jpg)
 
 ## Notlar
 

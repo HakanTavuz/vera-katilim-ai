@@ -25,7 +25,7 @@ sqlmap -u http://127.0.0.1:8000/login --data "username=a&password=b" -p username
 
 `SECURE_MODE=false`
 
-![VULN-01 saldırı](img/VULN-01-attack.png)
+![VULN-01 saldırı](img/VULN-01-attack.jpg)
 
 ## 4. Etki
 
@@ -45,7 +45,7 @@ Parametreli sorguda kullanıcı girdisi her zaman veri olarak gider, SQL olarak 
 
 `SECURE_MODE=true`
 
-![VULN-01 engellendi](img/VULN-01-blocked.png)
+![VULN-01 engellendi](img/VULN-01-blocked.jpg)
 
 ## Notlar
 

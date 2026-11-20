@@ -18,7 +18,7 @@ Transfer tutarı için sıfırdan büyük olma ve bakiye kontrolü yok. Bakiye o
 
 `SECURE_MODE=false`
 
-![VULN-04 saldırı](img/VULN-04-attack.png)
+![VULN-04 saldırı](img/VULN-04-attack.jpg)
 
 ## 4. Etki
 
@@ -38,7 +38,7 @@ Bakiye kontrolü ve düşme tek SQL ifadesinde yapılır; paralel iki istek ayn�
 
 `SECURE_MODE=true`
 
-![VULN-04 engellendi](img/VULN-04-blocked.png)
+![VULN-04 engellendi](img/VULN-04-blocked.jpg)
 
 ## Notlar
 

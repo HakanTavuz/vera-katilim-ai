@@ -18,7 +18,7 @@ Transfer açıklaması veritabanına olduğu gibi kaydediliyor ve gösterilirken
 
 `SECURE_MODE=false`
 
-![VULN-03 saldırı](img/VULN-03-attack.png)
+![VULN-03 saldırı](img/VULN-03-attack.jpg)
 
 ## 4. Etki
 
@@ -38,7 +38,7 @@ return text  # Jinja2 autoescape: < → &lt;
 
 `SECURE_MODE=true`
 
-![VULN-03 engellendi](img/VULN-03-blocked.png)
+![VULN-03 engellendi](img/VULN-03-blocked.jpg)
 
 ## Notlar
 

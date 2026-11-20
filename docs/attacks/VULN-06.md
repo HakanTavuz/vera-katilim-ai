@@ -24,7 +24,7 @@ done
 
 `SECURE_MODE=false`
 
-![VULN-06 saldırı](img/VULN-06-attack.png)
+![VULN-06 saldırı](img/VULN-06-attack.jpg)
 
 ## 4. Etki
 
@@ -38,7 +38,7 @@ Güvenli modda: IP başına dakikada 10 deneme sınırı, kullanıcı başına 5
 
 `SECURE_MODE=true`
 
-![VULN-06 engellendi](img/VULN-06-blocked.png)
+![VULN-06 engellendi](img/VULN-06-blocked.jpg)
 
 ## Notlar
 

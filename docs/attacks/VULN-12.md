@@ -17,7 +17,7 @@ Sohbet balonu modelin cevabını `innerHTML` ile basıyor. Model HTML üretirse 
 
 `SECURE_MODE=false`
 
-![VULN-12 saldırı](img/VULN-12-attack.png)
+![VULN-12 saldırı](img/VULN-12-attack.jpg)
 
 ## 4. Etki
 
@@ -37,7 +37,7 @@ Sunucu tarafında da cevap maskelenir; CSP satır içi handler'ları ayrıca eng
 
 `SECURE_MODE=true`
 
-![VULN-12 engellendi](img/VULN-12-blocked.png)
+![VULN-12 engellendi](img/VULN-12-blocked.jpg)
 
 ## Notlar
 

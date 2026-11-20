@@ -17,7 +17,7 @@ Transfer aracı kullanıcıya sormadan çalışıyor ve `from_id` parametresi il
 
 `SECURE_MODE=false`
 
-![VULN-10 saldırı](img/VULN-10-attack.png)
+![VULN-10 saldırı](img/VULN-10-attack.jpg)
 
 ## 4. Etki
 
@@ -31,7 +31,7 @@ Güvenli modda araç sadece `transfer_drafts` tablosuna taslak yazar. Sohbette O
 
 `SECURE_MODE=true`
 
-![VULN-10 engellendi](img/VULN-10-blocked.png)
+![VULN-10 engellendi](img/VULN-10-blocked.jpg)
 
 ## Notlar
 
